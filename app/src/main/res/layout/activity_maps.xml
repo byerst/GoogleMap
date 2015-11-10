@@ -14,7 +14,8 @@
         android:layout_gravity="top"
         android:layout_weight="5"
         android:id="@+id/TFaddress"
-        android:inputType="none" />
+        android:inputType="none"
+        android:hint="@string/address_search"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"

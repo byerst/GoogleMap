@@ -13,6 +13,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <uses-permission android:name="android.permission.SEND_SMS"  />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -31,6 +33,14 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.mycompany.sms.SendSMSActivity"
+            android:label="@string/title_activity_sms" >
+            <intent-filter>
+                <action android:name="com.example.alliekim.autotext.SEND_SMS" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
