@@ -1,6 +1,7 @@
 package com.mycompany.googlemap;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -17,6 +18,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.mycompany.sms.SendSMSActivity;
 
 import java.io.IOException;
 import java.util.List;
@@ -63,9 +65,13 @@ public class MapsActivity extends FragmentActivity {
             if(addressList.get(0) != null) {
                 Address address = addressList.get(0);
 
-                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                 dest =  new LatLng(address.getLatitude(), address.getLongitude());
+                /*mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));*/
+                Intent intent = new Intent(this, SendSMSActivity.class);
+                startActivity(intent);
+
+
             }
             else{
                 Log.d("error", "addressList[0] == null");
@@ -107,7 +113,6 @@ public class MapsActivity extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
 
         // Enable myLocation layer of google map
         mMap.setMyLocationEnabled(true);
@@ -144,7 +149,5 @@ public class MapsActivity extends FragmentActivity {
         // Zoom in the google map
         mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
 
-        // Add Marker to current location
-        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("You are here!").snippet("Consider yourself located"));
     }
 }
