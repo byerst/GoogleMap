@@ -25,7 +25,7 @@ import java.util.List;
 
 public class MapsActivity extends FragmentActivity {
 
-    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    public GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private float eta = 5; // time to destination
     private LatLng dest;    // destination latitude and longitude
 

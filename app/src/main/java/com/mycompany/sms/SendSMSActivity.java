@@ -5,14 +5,13 @@ package com.mycompany.sms;
  */
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.telephony.SmsManager;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import com.mycompany.googlemap.MapsActivity;
 import com.mycompany.googlemap.R;
 
 
@@ -36,14 +35,18 @@ public class SendSMSActivity extends Activity {
         textPhoneNo = (EditText) findViewById(R.id.editTextPhoneNo);
         textSMS = (EditText) findViewById(R.id.editTextSMS);
 
-        buttonSend.setOnClickListener(new OnClickListener() {
+    }
 
-            @Override
-            public void onClick(View v) {
+            public void onSubmit (View v) {
                 // get data from elements
                 String phoneNo = textPhoneNo.getText().toString();
                 String sms = textSMS.getText().toString();
-                try {
+                //start wait activity
+                Intent intent = new Intent(this, MapsActivity.class);
+                intent.putExtra("phoneNo", phoneNo);
+                intent.putExtra("message", sms);
+                startActivity(intent);
+            /*    try {
                     // initialize an SmsManager class called smsManager
                     SmsManager smsManager = SmsManager.getDefault();
                     smsManager.sendTextMessage(phoneNo, null, sms, null, null);
@@ -54,8 +57,7 @@ public class SendSMSActivity extends Activity {
                             "SMS failed, please try again later!",
                             Toast.LENGTH_LONG).show();
                     e.printStackTrace();
-                }
+                }*/
             }
-        });
-    }
-}
+        }
+

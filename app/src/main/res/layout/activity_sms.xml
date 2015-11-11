@@ -38,5 +38,6 @@
         android:id="@+id/buttonSend"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Send" />
+        android:text="Submit"
+        android:onClick="onSubmit" />
 </LinearLayout>
