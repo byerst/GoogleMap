@@ -2,6 +2,7 @@
     <string name="app_name">GoogleMap</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_sms">SMS</string>
+    <string name="title_activity_wait">wait</string>
     <string name="address_search">Enter Destination</string>
     <string name="button_search">Submit</string>
 </resources>
