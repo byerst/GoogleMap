@@ -20,6 +20,8 @@ public class SendSMSActivity extends Activity {
     Button buttonSend;
     EditText textPhoneNo;
     EditText textSMS;
+    float destLat;
+    float destLong;
 
     //Intent i = new Intent(this, LocationComparator.class);
     //startActivityForResult(i, 1);
@@ -29,6 +31,9 @@ public class SendSMSActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sms);
+        Intent intent = getIntent();
+        destLat = intent.getFloatExtra("destLat", 0);
+        destLong = intent.getFloatExtra("destLong", 0);
 
         // locate elements from xml file
         buttonSend = (Button) findViewById(R.id.buttonSend);
@@ -45,6 +50,8 @@ public class SendSMSActivity extends Activity {
                 Intent intent = new Intent(this, waitActivity.class);
                 intent.putExtra("phoneNo", phoneNo);
                 intent.putExtra("message", sms);
+                intent.putExtra("destLat", destLat);
+                intent.putExtra("destLong", destLong);
                 startActivity(intent);
             /*    try {
                     // initialize an SmsManager class called smsManager

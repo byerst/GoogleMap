@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -28,12 +29,14 @@ public class MapsActivity extends FragmentActivity {
     public GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private float eta = 5; // time to destination
     private LatLng dest;    // destination latitude and longitude
+    private boolean searchFlag = false; //flag for button press
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
+
     }
 
     @Override
@@ -44,40 +47,48 @@ public class MapsActivity extends FragmentActivity {
 
     public void onSearch(View view) throws IOException {
 
-        Log.d("onSearch","entered");
-        EditText location_tf = (EditText)findViewById(R.id.TFaddress);
-        String location = location_tf.getText().toString();
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(location_tf.getWindowToken(), 0);
-        location_tf.setText("");
-        location_tf.clearFocus();
-        List<Address> addressList = null;
+        Log.d("onSearch", "entered");
+        if (searchFlag == false) {
+            EditText location_tf = (EditText) findViewById(R.id.TFaddress);
+            String location = location_tf.getText().toString();
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(location_tf.getWindowToken(), 0);
+            //location_tf.setText("");
+            location_tf.clearFocus();
+            List<Address> addressList = null;
 
-        if (location != null || !location.equals(" ")) {
-            Geocoder geocoder = new Geocoder(this);
-            try {
-                addressList = geocoder.getFromLocationName(location, 1);
+            if (location != null || !location.equals(" ")) {
+                Geocoder geocoder = new Geocoder(this);
+                try {
+                    addressList = geocoder.getFromLocationName(location, 1);
 
-            } catch (IOException e) {
-                e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if (addressList.get(0) != null) {
+                    Address address = addressList.get(0);
+
+                    dest = new LatLng(address.getLatitude(), address.getLongitude());
+                    mMap.addMarker(new MarkerOptions().position(dest).title("Marker"));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLng(dest));
+                    Button searchButton = (Button) findViewById(R.id.Bsearch);
+                    searchButton.setHint("Submit");
+                    searchFlag = true;
+
+
+                } else {
+                    Log.d("error", "addressList[0] == null");
+                    return;
+                }
+
             }
-
-            if(addressList.get(0) != null) {
-                Address address = addressList.get(0);
-
-                 dest =  new LatLng(address.getLatitude(), address.getLongitude());
-                /*mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));*/
-                Intent intent = new Intent(this, SendSMSActivity.class);
-                startActivity(intent);
-
-
-            }
-            else{
-                Log.d("error", "addressList[0] == null");
-                return;
-            }
-
+        }
+        else if(searchFlag == true){
+            Intent intent = new Intent(this, SendSMSActivity.class);
+            intent.putExtra("destLat", dest.latitude);
+            intent.putExtra("destLong", dest.longitude);
+            startActivity(intent);
         }
     }
 
