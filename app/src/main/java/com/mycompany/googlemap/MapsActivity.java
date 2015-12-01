@@ -27,9 +27,7 @@ import java.util.List;
 public class MapsActivity extends FragmentActivity {
 
     public GoogleMap mMap; // Might be null if Google Play services APK is not available.
-    private float eta = 5; // time to destination
     private LatLng dest;    // destination latitude and longitude
-    private boolean searchFlag = false; //flag for button press
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,35 +45,43 @@ public class MapsActivity extends FragmentActivity {
 
     public void onSearch(View view) throws IOException {
 
-        Log.d("onSearch", "entered");
-        if (searchFlag == false) {
+            // Initialize EditText field
             EditText location_tf = (EditText) findViewById(R.id.TFaddress);
             String location = location_tf.getText().toString();
+
+            // Hide the keyboard
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(location_tf.getWindowToken(), 0);
-            //location_tf.setText("");
+
+            // Clear edit text field
+            location_tf.setText("");
             location_tf.clearFocus();
+
             List<Address> addressList = null;
 
+            // if there is a location
             if (location != null || !location.equals(" ")) {
+                // set up geocoder
                 Geocoder geocoder = new Geocoder(this);
                 try {
+                    // add location to addressList
                     addressList = geocoder.getFromLocationName(location, 1);
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
+                // if value placed in address list
                 if (addressList.get(0) != null) {
                     Address address = addressList.get(0);
 
+                    // Get lat/lng of address
                     dest = new LatLng(address.getLatitude(), address.getLongitude());
-                    mMap.addMarker(new MarkerOptions().position(dest).title("Marker"));
-                    mMap.animateCamera(CameraUpdateFactory.newLatLng(dest));
-                    Button searchButton = (Button) findViewById(R.id.Bsearch);
-                    searchButton.setHint("Submit");
-                    searchFlag = true;
 
+                    // place a marker at point
+                    mMap.addMarker(new MarkerOptions().position(dest).title("Marker"));
+                    // adjust camera to marker
+                    mMap.animateCamera(CameraUpdateFactory.newLatLng(dest));
 
                 } else {
                     Log.d("error", "addressList[0] == null");
@@ -84,14 +90,21 @@ public class MapsActivity extends FragmentActivity {
 
             }
         }
-        else if(searchFlag == true){
-            Intent intent = new Intent(this, SendSMSActivity.class);
-            intent.putExtra("destLat", dest.latitude);
-            intent.putExtra("destLong", dest.longitude);
-            startActivity(intent);
-        }
-    }
 
+    public void onSubmit(View view) throws IOException{
+
+        // if dest value not set, return
+        if(dest == null) return;
+
+        //Log.d("destLat", Double.toString(dest.latitude));
+
+        // Start intent to begin next activity and pass values
+        Intent intent = new Intent(this, SendSMSActivity.class);
+        intent.putExtra("destLat", dest.latitude);
+        intent.putExtra("destLong", dest.longitude);
+        startActivity(intent);
+
+    }
     /**
      * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
      * installed) and the map has not already been instantiated.. This will ensure that we only ever

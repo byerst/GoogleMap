@@ -137,17 +137,14 @@ public class waitActivity extends FragmentActivity {
     }
 
     public void onStart(View view){
-        int m = 0;
-        for(int n = 100000; n > 0; n--) {
-            m++;
-            if(n % 1000 == 0) {
+
+        for(int n = 1000; n > 0; n--) {
                 Location myLocation = getCurrent();
                 Log.d("location", "myLocation");
                 LatLng myLatLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(myLatLng));
             }
-        }
-        //sendSMS();
+        sendSMS();
     }
 
     Location getCurrent() {
@@ -167,7 +164,7 @@ public class waitActivity extends FragmentActivity {
             LatLng myLatLng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
             mMap.moveCamera(CameraUpdateFactory.newLatLng(myLatLng));
         }
-        if(sendText) {
+        if(sendText) {*/
             try {
                 // initialize an SmsManager class called smsManager
                 SmsManager smsManager = SmsManager.getDefault();
@@ -182,7 +179,7 @@ public class waitActivity extends FragmentActivity {
                         Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
-        }*/
+        //}
     }
 
 }

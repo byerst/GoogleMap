@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.mycompany.googlemap.R;
-import com.mycompany.wait.waitActivity;
+import com.mycompany.wait.waitActivity2;
 
 
 public class SendSMSActivity extends Activity {
@@ -20,8 +20,8 @@ public class SendSMSActivity extends Activity {
     Button buttonSend;
     EditText textPhoneNo;
     EditText textSMS;
-    float destLat;
-    float destLong;
+    double destLat;
+    double destLong;
 
     //Intent i = new Intent(this, LocationComparator.class);
     //startActivityForResult(i, 1);
@@ -31,9 +31,11 @@ public class SendSMSActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sms);
+
+        // Get values from intent
         Intent intent = getIntent();
-        destLat = intent.getFloatExtra("destLat", 0);
-        destLong = intent.getFloatExtra("destLong", 0);
+        destLat = intent.getDoubleExtra("destLat", 0);
+        destLong = intent.getDoubleExtra("destLong", 0);
 
         // locate elements from xml file
         buttonSend = (Button) findViewById(R.id.buttonSend);
@@ -46,25 +48,16 @@ public class SendSMSActivity extends Activity {
                 // get data from elements
                 String phoneNo = textPhoneNo.getText().toString();
                 String sms = textSMS.getText().toString();
+
+                //Log.d("destLat", Float.toString(destLat));
                 //start wait activity
-                Intent intent = new Intent(this, waitActivity.class);
+                Intent intent = new Intent(this, waitActivity2.class);
                 intent.putExtra("phoneNo", phoneNo);
                 intent.putExtra("message", sms);
                 intent.putExtra("destLat", destLat);
                 intent.putExtra("destLong", destLong);
                 startActivity(intent);
-            /*    try {
-                    // initialize an SmsManager class called smsManager
-                    SmsManager smsManager = SmsManager.getDefault();
-                    smsManager.sendTextMessage(phoneNo, null, sms, null, null);
-                    Toast.makeText(getApplicationContext(), "SMS Sent!",
-                            Toast.LENGTH_LONG).show();
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(),
-                            "SMS failed, please try again later!",
-                            Toast.LENGTH_LONG).show();
-                    e.printStackTrace();
-                }*/
+
             }
         }
 
