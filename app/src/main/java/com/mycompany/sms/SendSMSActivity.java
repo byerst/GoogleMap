@@ -23,9 +23,6 @@ public class SendSMSActivity extends Activity {
     double destLat;
     double destLong;
 
-    //Intent i = new Intent(this, LocationComparator.class);
-    //startActivityForResult(i, 1);
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

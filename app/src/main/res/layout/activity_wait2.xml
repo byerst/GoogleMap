@@ -10,7 +10,7 @@
         android:layout_height="wrap_content">
         <Button
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:text="@string/button_start"
@@ -41,28 +41,17 @@
         android:layout_gravity="center_horizontal"
         android:textColor="@color/wait_text"
         android:textSize="50sp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="50sp"
-        android:textColor="@color/wait_text"
-        android:text="Distance to Destination"
-        android:id="@+id/current"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.05" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="50sp"
-        android:textColor="@color/wait_text"
-        android:text="--"
-        android:id="@+id/currentLocValue"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.05" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:indeterminate="false"
+        android:progressDrawable="@drawable/circular_progress_bar"
+        android:background="@drawable/circle_shape"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:max="100000"
+        android:layout_gravity="center"
+        android:progress="0" />
 
 
 

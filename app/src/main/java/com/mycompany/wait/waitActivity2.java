@@ -11,6 +11,7 @@ import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,8 @@ public class waitActivity2 extends FragmentActivity{
     TextView elapsedTime;
     TextView currentValue;
     Chronometer timer;
+    ProgressBar progressBar;
+    int progressStatus = 0;
 
     LocationManager locationManager;
 
@@ -57,7 +60,7 @@ public class waitActivity2 extends FragmentActivity{
         // Set up view elements
         elapsedTime = (TextView) findViewById(R.id.elapsedTime);
         timer = (Chronometer) findViewById(R.id.chronometer);
-        currentValue = (TextView) findViewById(R.id.currentLocValue);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         //initialize locationManager
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -85,13 +88,14 @@ public class waitActivity2 extends FragmentActivity{
                 // while the current location isn't the destination
                 while (currentLoc.getLongitude() != destLong && currentLoc.getLatitude() != destLat ) {
 
+
                     // re-evaluate current location
                     currentLoc = getCurrent();
 
                     // update view to reflect new location
-                    currentValue.post(new Runnable() {
+                    progressBar.post(new Runnable() {
                         public void run() {
-                            currentValue.setText(Double.toString(distToDest()));
+                            progressBar.setProgress(progressStatus);
                         }
                     });
                 }

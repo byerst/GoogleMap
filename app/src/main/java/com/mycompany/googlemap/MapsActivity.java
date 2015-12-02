@@ -58,6 +58,7 @@ public class MapsActivity extends FragmentActivity {
             location_tf.clearFocus();
 
             List<Address> addressList = null;
+        
 
             // if there is a location
             if (location != null || !location.equals(" ")) {
