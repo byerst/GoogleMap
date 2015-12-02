@@ -5,46 +5,37 @@
     android:weightSum="1"
     android:background="@color/wait_bg">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
         <Button
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/start_button"
             android:text="@string/button_start"
+            android:textColor="#FFFFFF"
             android:id="@+id/Bstart"
             android:layout_gravity="top"
             android:onClick="onStart" />
-    </LinearLayout>
 
     <Space
         android:layout_width="20px"
         android:layout_height="100px" />
 
-    <TextView
+
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="50sp"
-        android:textColor="@color/wait_text"
-        android:text="Elapsed Time"
-        android:id="@+id/elapsedTime"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.05" />
-
+        android:layout_gravity="center">
     <Chronometer
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/chronometer"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center"
         android:textColor="@color/wait_text"
         android:textSize="50sp"/>
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
         android:indeterminate="false"
         android:progressDrawable="@drawable/circular_progress_bar"
         android:background="@drawable/circle_shape"
@@ -52,7 +43,7 @@
         android:max="100000"
         android:layout_gravity="center"
         android:progress="0" />
-
+    </FrameLayout>
 
 
 </LinearLayout>
