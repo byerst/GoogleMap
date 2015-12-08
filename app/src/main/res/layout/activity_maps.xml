@@ -27,7 +27,8 @@
         android:layout_gravity="top"
         android:layout_weight="5"
         android:id="@+id/TFaddress"
-        android:inputType="none"
+        android:inputType="textPostalAddress"
+        android:editable="true"
         android:hint="@string/address_search"/>
 
     <Button

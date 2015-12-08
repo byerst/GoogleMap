@@ -21,9 +21,9 @@ public class SendSMSActivity extends AppCompatActivity {
     EditText textPhoneNo;
     EditText textSMS;
     EditText textDistToSend;
+
     double destLat;
     double destLong;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,9 +41,11 @@ public class SendSMSActivity extends AppCompatActivity {
         textSMS = (EditText) findViewById(R.id.editTextSMS);
         textDistToSend = (EditText) findViewById(R.id.editTextMiles);
 
+
     }
 
             public void onSubmit (View v) {
+
                 // get data from elements
                 String phoneNo = textPhoneNo.getText().toString();
                 String sms = textSMS.getText().toString();
@@ -60,7 +62,6 @@ public class SendSMSActivity extends AppCompatActivity {
                     intent.putExtra("message", sms);
                     intent.putExtra("destLat", destLat);
                     intent.putExtra("destLong", destLong);
-                    intent.putExtra("distToSend", numMiles);
                     startActivity(intent);
                 }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linearLayout1"
+    android:id="@+id/smsActivity"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
@@ -19,16 +19,27 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <Button
+        android:id="@+id/buttonSend"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/start_button"
+        android:textSize="35sp"
+        android:textColor="@color/white"
+        android:text="Submit"
+        android:onClick="onSubmit"
+        android:layout_gravity="bottom" />
+
     <Space
         android:layout_width="20px"
         android:layout_height="100px" />
 
     <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_rectangle"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
         <TextView
             android:id="@+id/textViewPhoneNo"
             android:layout_width="wrap_content"
@@ -64,7 +75,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
-            android:lines="3"
+            android:lines="2"
             android:gravity="top"
             android:textColor="@color/black"
             android:padding="5dp"
@@ -91,14 +102,4 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/buttonSend"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-
-        android:textSize="50sp"
-        android:textColor="@color/black"
-        android:text="Submit"
-        android:onClick="onSubmit"
-        android:layout_gravity="bottom" />
 </LinearLayout>
