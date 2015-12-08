@@ -35,7 +35,7 @@ public class waitActivity extends FragmentActivity {
     private LocationListener myListener;    //Location Listener
 
 
-    private String phoneNo; //= new String("8082236901");  //Michele's number
+    private String phoneNo;
     private String message;
 
     @Override

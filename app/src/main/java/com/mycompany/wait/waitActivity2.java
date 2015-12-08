@@ -9,14 +9,14 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -44,10 +44,11 @@ public class waitActivity2 extends AppCompatActivity {
     private float distToSend;  //distance between points when message should be sent (meters)
                                         //default value of 1 mile
 
-    private String phoneNo; //= new String("8082236901");  //Michele's number
+    private String phoneNo;
     private String message;
     Chronometer timer;
     ProgressBar progressBar;
+    Button  startButton;
     int progressStatus = 0;
 
 
@@ -56,7 +57,6 @@ public class waitActivity2 extends AppCompatActivity {
     NotificationCompat.Builder myNotificationBuilder;
     Notification myNotification;
 
-    LinearLayout mContainerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +95,8 @@ public class waitActivity2 extends AppCompatActivity {
 
         myNotification = myNotificationBuilder.build();
 
+        startButton = (Button) findViewById(R.id.Bstart);
+
 
 
 
@@ -125,6 +127,9 @@ public class waitActivity2 extends AppCompatActivity {
         distBetween = destLoc.distanceTo(currentLoc);
 
         Log.d("Test",Float.toString(distBetween));
+
+
+        ((ViewGroup) startButton.getParent()).removeView(startButton);
 
         progressBar.setMax(Math.round(distBetween - numOfMiles));
         // start new thread to handle collecting current location

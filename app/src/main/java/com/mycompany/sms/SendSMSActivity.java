@@ -6,7 +6,6 @@ package com.mycompany.sms;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -51,9 +50,7 @@ public class SendSMSActivity extends AppCompatActivity {
                 String miles = textDistToSend.getText().toString();
 
 
-                if(phoneNo.equals("") || sms.equals("") || miles.equals("")) {
-                    new AlertDialog.Builder(this).setTitle("Error").setMessage("Please Set All Values").setNeutralButton("Close", null).show();
-                }
+                if(phoneNo.equals("") || sms.equals("") || miles.equals(""));
 
                 else{
                     float numMiles = Float.valueOf(miles);

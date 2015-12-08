@@ -2,7 +2,20 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:theme="@style/Theme.AppCompat.Light"
+        android:background="@color/wait_bg"
+        app:title="@string/app_name"
+        app:titleTextColor="@color/white"
+        app:subtitle="@string/title_activity_maps"
+        app:subtitleTextColor="@color/gray">
+
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:orientation="horizontal"
