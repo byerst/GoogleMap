@@ -4,9 +4,10 @@ package com.mycompany.sms;
  * Created by alliekim on 9/15/15.
  */
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,11 +16,12 @@ import com.mycompany.googlemap.R;
 import com.mycompany.wait.waitActivity2;
 
 
-public class SendSMSActivity extends Activity {
+public class SendSMSActivity extends AppCompatActivity {
 
     Button buttonSend;
     EditText textPhoneNo;
     EditText textSMS;
+    EditText textDistToSend;
     double destLat;
     double destLong;
 
@@ -38,6 +40,7 @@ public class SendSMSActivity extends Activity {
         buttonSend = (Button) findViewById(R.id.buttonSend);
         textPhoneNo = (EditText) findViewById(R.id.editTextPhoneNo);
         textSMS = (EditText) findViewById(R.id.editTextSMS);
+        textDistToSend = (EditText) findViewById(R.id.editTextMiles);
 
     }
 
@@ -45,15 +48,25 @@ public class SendSMSActivity extends Activity {
                 // get data from elements
                 String phoneNo = textPhoneNo.getText().toString();
                 String sms = textSMS.getText().toString();
+                String miles = textDistToSend.getText().toString();
 
-                //Log.d("destLat", Float.toString(destLat));
-                //start wait activity
-                Intent intent = new Intent(this, waitActivity2.class);
-                intent.putExtra("phoneNo", phoneNo);
-                intent.putExtra("message", sms);
-                intent.putExtra("destLat", destLat);
-                intent.putExtra("destLong", destLong);
-                startActivity(intent);
+
+                if(phoneNo.equals("") || sms.equals("") || miles.equals("")) {
+                    new AlertDialog.Builder(this).setTitle("Error").setMessage("Please Set All Values").setNeutralButton("Close", null).show();
+                }
+
+                else{
+                    float numMiles = Float.valueOf(miles);
+                    //start wait activity
+                    Intent intent = new Intent(this, waitActivity2.class);
+                    intent.putExtra("phoneNo", phoneNo);
+                    intent.putExtra("message", sms);
+                    intent.putExtra("destLat", destLat);
+                    intent.putExtra("destLong", destLong);
+                    intent.putExtra("distToSend", numMiles);
+                    startActivity(intent);
+                }
+
 
             }
         }

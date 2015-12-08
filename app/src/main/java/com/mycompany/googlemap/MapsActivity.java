@@ -8,11 +8,13 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,7 +26,7 @@ import com.mycompany.sms.SendSMSActivity;
 import java.io.IOException;
 import java.util.List;
 
-public class MapsActivity extends FragmentActivity {
+public class MapsActivity extends AppCompatActivity {
 
     public GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private LatLng dest;    // destination latitude and longitude
@@ -95,7 +97,11 @@ public class MapsActivity extends FragmentActivity {
     public void onSubmit(View view) throws IOException{
 
         // if dest value not set, return
-        if(dest == null) return;
+        if(dest == null) {
+            Toast.makeText(getApplicationContext(), "Error -- Enter Address First",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
 
         //Log.d("destLat", Double.toString(dest.latitude));
 
