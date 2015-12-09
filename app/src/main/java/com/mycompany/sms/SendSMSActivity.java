@@ -62,6 +62,7 @@ public class SendSMSActivity extends AppCompatActivity {
                     intent.putExtra("message", sms);
                     intent.putExtra("destLat", destLat);
                     intent.putExtra("destLong", destLong);
+                    intent.putExtra("distToSend", numMiles);
                     startActivity(intent);
                 }
 

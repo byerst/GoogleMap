@@ -17,6 +17,10 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="5px" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -31,6 +35,7 @@
         android:editable="true"
         android:hint="@string/address_search"/>
 
+
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
@@ -39,7 +44,13 @@
         android:text="@string/button_search"
         android:id="@+id/Bsearch"
         android:layout_gravity="top"
-        android:onClick="onSearch" />
+        android:onClick="onSearch"
+        android:background="@drawable/start_button"
+        android:textColor="@color/white"/>
+
+        <Space
+            android:layout_width="10px"
+            android:layout_height="match_parent" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -49,9 +60,19 @@
             android:text="@string/button_submit"
             android:id="@+id/Bsubmit"
             android:layout_gravity="top"
-            android:onClick="onSubmit" />
+            android:onClick="onSubmit"
+            android:background="@drawable/start_button"
+            android:textColor="@color/white"/>
+
+        <Space
+            android:layout_width="5px"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="5px" />
 
     <LinearLayout
         android:layout_width="wrap_content"
