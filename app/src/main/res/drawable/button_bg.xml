@@ -14,7 +14,7 @@
         <!--whatever you want in the background, here i preferred solid white -->
         <shape android:shape="rectangle">
             <solid android:color="#750097A7"/>
-            <corners android:radius="12px"/>
+
 
         </shape>
     </item>

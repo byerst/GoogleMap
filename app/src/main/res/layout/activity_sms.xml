@@ -32,13 +32,13 @@
 
     <Space
         android:layout_width="20px"
-        android:layout_height="100px" />
+        android:layout_height="75px" />
 
     <LinearLayout
         android:id="@+id/layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_rectangle"
+        android:background="@drawable/button_bg"
         android:orientation="vertical">
         <TextView
             android:id="@+id/textViewPhoneNo"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:text="Enter Phone Number : "
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:padding="5dp"/>
 
         <EditText
@@ -54,9 +54,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:phoneNumber="true"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:padding="5dp"
-            android:backgroundTint="@color/black">
+            android:backgroundTint="@color/white">
         </EditText>
 
 
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:text="Enter SMS Message : "
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:padding="5dp"/>
 
         <EditText
@@ -77,9 +77,9 @@
             android:inputType="textMultiLine"
             android:lines="2"
             android:gravity="top"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:padding="5dp"
-            android:backgroundTint="@color/black"/>
+            android:backgroundTint="@color/white"/>
 
 
         <TextView
@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:text="Enter Number of Miles from Destination to Send Text :"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:padding="5dp"/>
 
         <EditText
@@ -96,9 +96,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:padding="5dp"
-            android:backgroundTint="@color/black"/>
+            android:backgroundTint="@color/white"/>
 
     </LinearLayout>
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">IM Here</string>
+    <string name="app_name">I.M. Here</string>
     <string name="title_activity_maps">Select Destination</string>
     <string name="title_activity_sms">Set Up Message</string>
     <string name="title_activity_wait">wait</string>

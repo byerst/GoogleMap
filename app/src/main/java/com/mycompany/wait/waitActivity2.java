@@ -51,8 +51,6 @@ public class waitActivity2 extends AppCompatActivity {
     Button  startButton;
     int progressStatus = 0;
 
-
-    LocationManager locationManager;
     NotificationManager myNotificationManager;
     NotificationCompat.Builder myNotificationBuilder;
     Notification myNotification;
@@ -71,16 +69,15 @@ public class waitActivity2 extends AppCompatActivity {
         message = intent.getStringExtra("message");
         destLat = intent.getDoubleExtra("destLat", 0);
         destLong = intent.getDoubleExtra("destLong", 0);
-        distToSend = intent.getFloatExtra("distToSend", 0);
+        numOfMiles = intent.getFloatExtra("distToSend", 0);
 
-
+        Log.d("Test", Float.toString(numOfMiles));
 
         destLoc = new Location(Context.LOCATION_SERVICE);
 
         Log.d("Test", Double.toString(destLat));
 
-        //initialize locationManager
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
 
         myNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         // Set up view elements
@@ -90,7 +87,7 @@ public class waitActivity2 extends AppCompatActivity {
         myNotificationBuilder = new NotificationCompat.Builder(this);
 
         myNotificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
-        myNotificationBuilder.setContentTitle("GoogleMaps");
+        myNotificationBuilder.setContentTitle("I.M. Here");
         myNotificationBuilder.setContentText("Message Has Been Sent");
 
         myNotification = myNotificationBuilder.build();
@@ -113,7 +110,7 @@ public class waitActivity2 extends AppCompatActivity {
         timer.setBase(SystemClock.elapsedRealtime());
         timer.start();
 
-        numOfMiles = distToSend * mile;
+        distToSend = numOfMiles * mile;
 
 
         destLoc.setLongitude(destLong);
@@ -131,7 +128,7 @@ public class waitActivity2 extends AppCompatActivity {
 
         ((ViewGroup) startButton.getParent()).removeView(startButton);
 
-        progressBar.setMax(Math.round(distBetween - numOfMiles));
+        progressBar.setMax(Math.round(distBetween - distToSend));
         // start new thread to handle collecting current location
         new Thread(new Runnable() {
             public void run() {
@@ -144,6 +141,7 @@ public class waitActivity2 extends AppCompatActivity {
 
                     // re-evaluate current location
                     currentLoc = getCurrent();
+                    Log.d("Test", currentLoc.toString());
                     progressStatus = Math.round(distBetween - destLoc.distanceTo(currentLoc));
 
                     // update view to reflect new location
@@ -184,6 +182,8 @@ public class waitActivity2 extends AppCompatActivity {
     /* function that returns the current location using locationManager services
          */
 
+        //initialize locationManager
+       LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location myLocation = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
         return myLocation;
     }
@@ -196,7 +196,7 @@ public class waitActivity2 extends AppCompatActivity {
             smsManager.sendTextMessage(phoneNo, null, message, null, null);
             timer.stop();
 
-            new AlertDialog.Builder(this).setTitle("MapTest").setMessage("Message Sent!").setNeutralButton("Close", null).show();
+            new AlertDialog.Builder(this).setTitle("I.M. Here").setMessage("Your message has been sent!").setNeutralButton("Close", null).show();
             myNotificationManager.notify(1, myNotification);
 
         } catch (Exception e) {
