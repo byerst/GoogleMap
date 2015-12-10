@@ -15,6 +15,8 @@ import android.support.v7.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -47,6 +49,7 @@ public class waitActivity2 extends FragmentActivity{
     Chronometer timer;
     ProgressBar progressBar;
     int progressStatus = 0;
+    Button startButton;
 
     LocationManager locationManager;
 
@@ -69,7 +72,7 @@ public class waitActivity2 extends FragmentActivity{
         message = intent.getStringExtra("message");
         destLat = intent.getDoubleExtra("destLat", 0);
         destLong = intent.getDoubleExtra("destLong", 0);
-        distToSend = intent.getFloatExtra("distToSend", 0);
+        numOfMiles = intent.getFloatExtra("distToSend", 0);
 
         destLoc = new Location(Context.LOCATION_SERVICE);
 
@@ -94,6 +97,7 @@ public class waitActivity2 extends FragmentActivity{
         // Set up view elements
         timer = (Chronometer) findViewById(R.id.chronometer);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        startButton = (Button) findViewById(R.id.Bstart);
 
 
 
@@ -130,6 +134,8 @@ public class waitActivity2 extends FragmentActivity{
 
         progressBar.setMax(Math.round(distBetween - distToSend));
 
+        ((ViewGroup) startButton.getParent()).removeView(startButton);
+
         // start new thread to handle collecting current location
         /*new Thread(new Runnable() {
             public void run() {
@@ -162,19 +168,6 @@ public class waitActivity2 extends FragmentActivity{
 
             }
         }).start(); */
-    }
-
-
-    public double distToDest() {
-
-        // placeholder value for calculated distance
-        double dist;
-
-        // find hypotenuse
-        dist = Math.pow(Math.pow(Math.abs(currentLoc.getLatitude() - destLat), 2) + Math.pow(Math.abs(currentLoc.getLongitude() - destLong), 2), .5);
-
-        // return value
-        return dist;
     }
 
     Location getCurrent() {
