@@ -7,6 +7,7 @@ package com.mycompany.sms;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,7 +49,8 @@ public class SendSMSActivity extends AppCompatActivity {
 
                 // get data from elements
                 String phoneNo = textPhoneNo.getText().toString();
-                String sms = textSMS.getText().toString();
+                String sms = textSMS.getText().toString() + "\n\n" + "-Sent using I.M. Here";
+                Log.d("test", sms);
                 String miles = textDistToSend.getText().toString();
 
 
