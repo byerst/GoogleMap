@@ -44,18 +44,18 @@ public class waitActivity2 extends FragmentActivity{
     private static final float mile = 1609; //value of a mile in meters
 
 
-    private String phoneNo;
-    private String message;
-    Chronometer timer;
-    ProgressBar progressBar;
-    int progressStatus = 0;
-    Button startButton;
+    private String phoneNo; //phone Number
+    private String message; //user message string
+    Chronometer timer;  //elapsed time timer
+    ProgressBar progressBar;    //circular progress meter
+    int progressStatus = 0; //initial progress
+    Button startButton; //begin button view
 
-    LocationManager locationManager;
+    LocationManager locationManager;    //locationManager
 
-    public boolean sent = false;
+    public boolean sent = false;    //sent sms flag
 
-    NotificationManager myNotificationManager;
+    NotificationManager myNotificationManager;  //Notification
     NotificationCompat.Builder myNotificationBuilder;
     Notification myNotification;
 
@@ -74,9 +74,8 @@ public class waitActivity2 extends FragmentActivity{
         destLong = intent.getDoubleExtra("destLong", 0);
         numOfMiles = intent.getFloatExtra("distToSend", 0);
 
+        //Create location variable for destination
         destLoc = new Location(Context.LOCATION_SERVICE);
-
-        Log.d("Test", Double.toString(destLat));
 
         //initialize locationManager
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -120,54 +119,22 @@ public class waitActivity2 extends FragmentActivity{
         timer.setBase(SystemClock.elapsedRealtime());
         timer.start();
 
+        //give lat/lng values to destination location
         destLoc.setLongitude(destLong);
         destLoc.setLatitude(destLat);
-
-        Log.d("Test", destLoc.toString());
 
         // get current location
         currentLoc = getCurrent();
 
+        //calculate distance between start point and end point
         distBetween = destLoc.distanceTo(currentLoc);
 
-        Log.d("Test", Float.toString(distBetween));
-
+        //Initialize max value for progress bar to be distance to send sms point
         progressBar.setMax(Math.round(distBetween - distToSend));
 
+        //Remove button from view
         ((ViewGroup) startButton.getParent()).removeView(startButton);
 
-        // start new thread to handle collecting current location
-        /*new Thread(new Runnable() {
-            public void run() {
-
-
-
-                // while the current location isn't the destination
-                while (destLoc.distanceTo(currentLoc)  > distToSend) {
-
-
-                    // re-evaluate current location
-                    currentLoc = getCurrent();
-                    //Log.d("Test", currentLoc.toString());
-                    progressStatus = Math.round(distBetween - destLoc.distanceTo(currentLoc));
-
-                    // update view to reflect new location
-                    progressBar.post(new Runnable() {
-                        public void run() {
-                            progressBar.setProgress(progressStatus);
-                        }
-                    });
-                }
-                // when it is time to send sms do so in UI thread
-                waitActivity2.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        sendSMS();
-                    }
-                });
-
-            }
-        }).start(); */
     }
 
     Location getCurrent() {
@@ -183,11 +150,21 @@ public class waitActivity2 extends FragmentActivity{
             // initialize an SmsManager class called smsManager
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNo, null, message, null, null);
+
+            //Produce alert dialog box stating message sent
             new AlertDialog.Builder(this).setTitle("I.M. Here").setMessage("Message Sent!").setNeutralButton("Close", null).show();
+
+            //send notification
             myNotificationManager.notify(1, myNotification);
+
+            //set sent flag to be true
             sent = true;
 
+            //stop the timer
+            timer.stop();
+
         } catch (Exception e) {
+            //toast if sms unable to send
             Toast.makeText(getApplicationContext(),
                     "SMS failed",
                     Toast.LENGTH_LONG).show();
@@ -213,9 +190,8 @@ public class waitActivity2 extends FragmentActivity{
 
         @Override
         public void onLocationChanged(Location location) {
-            // Do work with new location. Implementation of this method will be covered later.
-            Log.d("Listen", location.toString());
 
+            //Calculate new progress
             progressStatus = Math.round(distBetween - destLoc.distanceTo(location));
 
             // update view to reflect new location
@@ -225,11 +201,18 @@ public class waitActivity2 extends FragmentActivity{
                 }
             });
 
+            // if it is not time to send sms
             if (destLoc.distanceTo(location)  > distToSend){
 
+                //do nothing
             }
+
+            // if it is time to send sms and have not sent yet
             else if(!sent){
+                //send the sms
                 sendSMS();
+
+                //Updates no longer necessary so remove listener
                 locationManager.removeUpdates(locationListener);
             }
 
