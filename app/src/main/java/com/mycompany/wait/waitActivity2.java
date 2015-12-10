@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -16,14 +15,22 @@ import android.widget.Chronometer;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.mycompany.googlemap.R;
 
+import java.text.DateFormat;
+import java.util.Date;
 
 
 /**
  * Created by Tim on 11/23/15.
  */
-public class waitActivity2 extends FragmentActivity{
+public class waitActivity2 extends FragmentActivity implements
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
 
     private double destLat; //destination latitude
@@ -45,8 +52,20 @@ public class waitActivity2 extends FragmentActivity{
     int progressStatus = 0;
 
     LocationManager locationManager;
+    GoogleApiClient mGoogleApiClient;
+
+    protected Boolean mRequestingLocationUpdates;
+    protected LocationRequest mLocationRequest;
 
     public boolean sent = false;
+
+    protected Location mCurrentLocation;
+    protected String mLastUpdateTime;
+
+    // Keys for storing activity state in the Bundle.
+    protected final static String REQUESTING_LOCATION_UPDATES_KEY = "requesting-location-updates-key";
+    protected final static String LOCATION_KEY = "location-key";
+    protected final static String LAST_UPDATED_TIME_STRING_KEY = "last-updated-time-string-key";
 
 
     @Override
@@ -66,9 +85,11 @@ public class waitActivity2 extends FragmentActivity{
 
         Log.d("Test", Double.toString(destLat));
 
+        mRequestingLocationUpdates = false;
+
         //initialize locationManager
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER,1000,5,locationListener);
+        buildGoogleApiClient();
 
 
         // Set up view elements
@@ -81,13 +102,7 @@ public class waitActivity2 extends FragmentActivity{
 
     }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-    }
-
-
-    public void onStart(View view){
+    public void onBegin(View view){
         // start timer for elapsed time
         timer.setBase(SystemClock.elapsedRealtime());
         timer.start();
@@ -178,45 +193,158 @@ public class waitActivity2 extends FragmentActivity{
         }
 
     }
-    LocationListener locationListener = new LocationListener() {
+    protected void createLocationRequest() {
+        LocationRequest mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(3000);
+        mLocationRequest.setFastestInterval(1000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    }
 
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    protected void startLocationUpdates() {
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+                mGoogleApiClient, mLocationRequest, this);
+    }
+
+    /**
+     * Builds a GoogleApiClient. Uses the {@code #addApi} method to request the
+     * LocationServices API.
+     */
+    protected synchronized void buildGoogleApiClient() {
+        Log.i("TAG", "Building GoogleApiClient");
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        createLocationRequest();
+    }
+
+    private void updateProgress() {
+        progressStatus = Math.round(distBetween - destLoc.distanceTo(mCurrentLocation));
+        progressBar.setProgress(progressStatus);
+    }
+
+    /**
+     * Removes location updates from the FusedLocationApi.
+     */
+    protected void stopLocationUpdates() {
+        // It is a good practice to remove location requests when the activity is in a paused or
+        // stopped state. Doing so helps battery performance and is especially
+        // recommended in applications that request frequent location updates.
+
+        // The final argument to {@code requestLocationUpdates()} is a LocationListener
+        // (http://developer.android.com/reference/com/google/android/gms/location/LocationListener.html).
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Within {@code onPause()}, we pause location updates, but leave the
+        // connection to GoogleApiClient intact.  Here, we resume receiving
+        // location updates if the user has requested them.
+
+        if (mGoogleApiClient.isConnected() && mRequestingLocationUpdates) {
+            startLocationUpdates();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Stop location updates to save battery, but don't disconnect the GoogleApiClient object.
+        if (mGoogleApiClient.isConnected()) {
+            stopLocationUpdates();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        mGoogleApiClient.disconnect();
+
+        super.onStop();
+    }
+
+    /**
+     * Runs when a GoogleApiClient object successfully connects.
+     */
+    @Override
+    public void onConnected(Bundle connectionHint) {
+
+        // If the initial location was never previously requested, we use
+        // FusedLocationApi.getLastLocation() to get it. If it was previously requested, we store
+        // its value in the Bundle and check for it in onCreate(). We
+        // do not request it again unless the user specifically requests location updates by pressing
+        // the Start Updates button.
+        //
+        // Because we cache the value of the initial location in the Bundle, it means that if the
+        // user launches the activity,
+        // moves to a new location, and then changes the device orientation, the original location
+        // is displayed as the activity is re-created.
+        if (mCurrentLocation == null) {
+            mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+            updateProgress();
         }
 
-        @Override
-        public void onProviderEnabled(String provider) {
+        // If the user presses the Start Updates button before GoogleApiClient connects, we set
+        // mRequestingLocationUpdates to true (see startUpdatesButtonHandler()). Here, we check
+        // the value of mRequestingLocationUpdates and if it is true, we start location updates.
+        if (mRequestingLocationUpdates) {
+            startLocationUpdates();
+        }
+    }
 
+    /**
+     * Callback that fires when the location changes.
+     */
+    @Override
+    public void onLocationChanged(Location location) {
+        mCurrentLocation = location;
+        Log.d("Location", mCurrentLocation.toString());
+        mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+        updateProgress();
+        if (destLoc.distanceTo(currentLoc)  > distToSend){
+            /** Do Nothing
+             *
+             */
+        }
+        else if(!sent) {
+            sendSMS();
+            sent = true;
         }
 
-        @Override
-        public void onProviderDisabled(String provider) {
+    }
 
-        }
+    @Override
+    public void onConnectionSuspended(int cause) {
+        // The connection to Google Play services was lost for some reason. We call connect() to
+        // attempt to re-establish the connection.
+        mGoogleApiClient.connect();
+    }
 
-        @Override
-        public void onLocationChanged(Location location) {
-            // Do work with new location. Implementation of this method will be covered later.
-            Log.d("Listen", location.toString());
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        // Refer to the javadoc for ConnectionResult to see what error codes might be returned in
+        // onConnectionFailed.
+    }
 
-            progressStatus = Math.round(distBetween - destLoc.distanceTo(location));
 
-            // update view to reflect new location
-            progressBar.post(new Runnable() {
-                public void run() {
-                    progressBar.setProgress(progressStatus);
-                }
-            });
+    /**
+     * Stores activity data in the Bundle.
+     */
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putBoolean(REQUESTING_LOCATION_UPDATES_KEY, mRequestingLocationUpdates);
+        savedInstanceState.putParcelable(LOCATION_KEY, mCurrentLocation);
+        savedInstanceState.putString(LAST_UPDATED_TIME_STRING_KEY, mLastUpdateTime);
+        super.onSaveInstanceState(savedInstanceState);
+    }
 
-            if (destLoc.distanceTo(location)  > distToSend){
-
-            }
-            else if(!sent){
-                sendSMS();
-                sent = true;
-                locationManager.removeUpdates(locationListener);
-            }
-
-        }
-    };
 }
