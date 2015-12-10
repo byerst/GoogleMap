@@ -87,7 +87,7 @@ public class waitActivity2 extends FragmentActivity{
     }
 
 
-    public void onStart(View view){
+    public void onBegin(View view){
         // start timer for elapsed time
         timer.setBase(SystemClock.elapsedRealtime());
         timer.start();
