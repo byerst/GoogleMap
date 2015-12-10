@@ -44,7 +44,7 @@ public class waitActivity2 extends FragmentActivity{
     private static final float mile = 1609; //value of a mile in meters
 
 
-    private String phoneNo; //= new String("8082236901");  //Michele's number
+    private String phoneNo;
     private String message;
     Chronometer timer;
     ProgressBar progressBar;
