@@ -31,7 +31,7 @@
             android:textSize="20sp"
             android:id="@+id/Bstart"
             android:layout_gravity="top"
-            android:onClick="onStart" />
+            android:onClick="onBegin" />
 
     <Space
         android:layout_width="20px"
