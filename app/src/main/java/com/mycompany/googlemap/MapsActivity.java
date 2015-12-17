@@ -83,7 +83,7 @@ public class MapsActivity extends AppCompatActivity {
                     dest = new LatLng(address.getLatitude(), address.getLongitude());
 
                     // place a marker at point
-                    mMap.addMarker(new MarkerOptions().position(dest).title("Marker"));
+                    mMap.addMarker(new MarkerOptions().position(dest).title("Destination"));
                     // adjust camera to marker
                     mMap.animateCamera(CameraUpdateFactory.newLatLng(dest));
 

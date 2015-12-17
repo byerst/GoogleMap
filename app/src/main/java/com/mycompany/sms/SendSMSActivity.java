@@ -49,7 +49,7 @@ public class SendSMSActivity extends AppCompatActivity {
 
                 // get data from elements
                 String phoneNo = textPhoneNo.getText().toString();
-                String sms = textSMS.getText().toString() + "\n\n" + "-Sent using I.M. Here";
+                String sms = textSMS.getText().toString() + "\n\n" + "-Sent using IM Here";
                 Log.d("test", sms);
                 String miles = textDistToSend.getText().toString();
 
