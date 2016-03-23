@@ -45,15 +45,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.mycompany.wait.waitActivity"
-            android:label="@string/title_activity_wait" >
-
-            <intent-filter>
-                <action android:name="com.mycompany.wait.waitActivity" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <activity android:name="com.mycompany.wait.waitActivity2"
                   android:label="@string/title_activity_wait2"

@@ -15,6 +15,7 @@
         app:theme="@style/Theme.AppCompat.Light"
         android:background="@color/wait_bg"
         app:title="@string/app_name"
+        app:logo="@drawable/ic_action_name"
         app:titleTextColor="@color/white"
         app:subtitle="@string/title_activity_wait2"
         app:subtitleTextColor="@color/gray">

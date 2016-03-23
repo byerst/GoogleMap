@@ -79,15 +79,15 @@ public class waitActivity2 extends FragmentActivity{
 
         //initialize locationManager
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER,1000,5,locationListener);
+        locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER,1000,10,locationListener);
 
         //initialize notificationManager
         myNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         //initialize notification builder
         myNotificationBuilder = new NotificationCompat.Builder(this);
-        myNotificationBuilder.setSmallIcon(R.mipmap.ic_launcher);
-        myNotificationBuilder.setContentTitle("I.M. Here");
+        myNotificationBuilder.setSmallIcon(R.drawable.ic_stat_name);
+        myNotificationBuilder.setContentTitle(getString(R.string.app_name));
         myNotificationBuilder.setContentText("Your Message Has Been Sent");
 
         myNotification = myNotificationBuilder.build();
@@ -152,7 +152,7 @@ public class waitActivity2 extends FragmentActivity{
             smsManager.sendTextMessage(phoneNo, null, message, null, null);
 
             //Produce alert dialog box stating message sent
-            new AlertDialog.Builder(this).setTitle("I.M. Here").setMessage("Message Sent!").setNeutralButton("Close", null).show();
+            new AlertDialog.Builder(this).setTitle(R.string.app_name).setMessage("Message Sent!").setNeutralButton("Close", null).show();
 
             //send notification
             myNotificationManager.notify(1, myNotification);
@@ -211,7 +211,7 @@ public class waitActivity2 extends FragmentActivity{
             else if(!sent){
                 //send the sms
                 sendSMS();
-
+                sent = true;
                 //Updates no longer necessary so remove listener
                 locationManager.removeUpdates(locationListener);
             }
