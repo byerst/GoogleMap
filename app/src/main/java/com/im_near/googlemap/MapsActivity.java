@@ -1,4 +1,4 @@
-package com.mycompany.googlemap;
+package com.im_near.googlemap;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +19,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.mycompany.sms.SendSMSActivity;
+import com.im_near.sms.SendSMSActivity;
 
 import java.io.IOException;
 import java.util.List;
