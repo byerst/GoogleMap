@@ -1,4 +1,4 @@
-package com.mycompany.wait;
+package com.im_near.wait;
 
 import android.app.AlertDialog;
 import android.app.Notification;
@@ -13,7 +13,6 @@ import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.NotificationCompat;
 import android.telephony.SmsManager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -21,7 +20,7 @@ import android.widget.Chronometer;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.mycompany.googlemap.R;
+import com.im_near.googlemap.R;
 
 
 
