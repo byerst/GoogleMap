@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.im_near.googlemap" >
+    package="com.mycompany.googlemap" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -29,7 +29,7 @@
             android:value="AIzaSyCXWijoevz0mqt_qvYs-xxE6ke5mXG8CX0" />
 
         <activity
-            android:name="com.im_near.googlemap.MapsActivity"
+            android:name=".MapsActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.im_near.sms.SendSMSActivity"
+            android:name="com.mycompany.sms.SendSMSActivity"
             android:label="@string/title_activity_sms" >
             <intent-filter>
                 <action android:name="com.example.alliekim.autotext.SEND_SMS" />
@@ -46,7 +46,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.im_near.wait.waitActivity2"
+        <activity android:name="com.mycompany.wait.waitActivity2"
                   android:label="@string/title_activity_wait2"
                   android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>

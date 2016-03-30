@@ -1,4 +1,4 @@
-package com.im_near.googlemap;
+package com.mycompany.googlemap;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

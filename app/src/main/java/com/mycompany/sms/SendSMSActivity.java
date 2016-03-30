@@ -1,4 +1,4 @@
-package com.im_near.sms;
+package com.mycompany.sms;
 
 /**
  * Created by alliekim on 9/15/15.
@@ -12,8 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.im_near.googlemap.R;
-import com.im_near.wait.waitActivity2;
+import com.mycompany.googlemap.R;
+import com.mycompany.wait.waitActivity2;
 
 
 public class SendSMSActivity extends AppCompatActivity {
