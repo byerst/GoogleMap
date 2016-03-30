@@ -20,7 +20,7 @@ import android.widget.Chronometer;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.im_near.googlemap.R;
+import com.im_near.R;
 
 
 

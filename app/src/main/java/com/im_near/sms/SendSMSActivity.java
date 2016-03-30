@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.im_near.googlemap.R;
+import com.im_near.R;
 import com.im_near.wait.waitActivity2;
 
 
