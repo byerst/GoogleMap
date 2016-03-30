@@ -19,7 +19,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.im_near.R;
 import com.im_near.sms.SendSMSActivity;
 
 import java.io.IOException;
@@ -34,7 +33,6 @@ public class MapsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        //setUpMap();
         setUpMapIfNeeded();
 
 
@@ -145,8 +143,6 @@ public class MapsActivity extends AppCompatActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-
-        Log.d("Map", "Setupmap entered");
 
         // Enable myLocation layer of google map
         mMap.setMyLocationEnabled(true);
