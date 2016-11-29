@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mycompany.googlemap" >
+    package="com.mycompany.googlemap">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -26,7 +26,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCXWijoevz0mqt_qvYs-xxE6ke5mXG8CX0" />
+            android:value="AIzaSyChK40M0BAG9TfHXlQK4MUQaZfLmsLJYuI" />
 
         <activity
             android:name=".MapsActivity"
