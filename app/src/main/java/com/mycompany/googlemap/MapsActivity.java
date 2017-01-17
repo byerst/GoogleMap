@@ -51,6 +51,14 @@ public class MapsActivity extends AppCompatActivity {
             // Initialize EditText field
             EditText location_tf = (EditText) findViewById(R.id.TFaddress);
             String location = location_tf.getText().toString();
+            Log.d("map", location);
+
+            if(location.equals("")){
+                Toast.makeText(getApplicationContext(), "Error -- Enter Address First",
+                        Toast.LENGTH_LONG).show();
+                return;
+            }
+
 
             // Hide the keyboard
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -111,6 +119,7 @@ public class MapsActivity extends AppCompatActivity {
         intent.putExtra("destLat", dest.latitude);
         intent.putExtra("destLong", dest.longitude);
         startActivity(intent);
+        finish();
 
     }
     /**

@@ -119,12 +119,17 @@ public class waitActivity2 extends FragmentActivity{
         timer.setBase(SystemClock.elapsedRealtime());
         timer.start();
 
+        // get current location
+        //if(null != getCurrent()){
+            currentLoc = getCurrent();
+        //}
+
+        // init destLoc values for debug
+        Log.d("Map", currentLoc.toString());
+
         //give lat/lng values to destination location
         destLoc.setLongitude(destLong);
         destLoc.setLatitude(destLat);
-
-        // get current location
-        currentLoc = getCurrent();
 
         //calculate distance between start point and end point
         distBetween = destLoc.distanceTo(currentLoc);
@@ -134,6 +139,18 @@ public class waitActivity2 extends FragmentActivity{
 
         //Remove button from view
         ((ViewGroup) startButton.getParent()).removeView(startButton);
+
+
+        Log.d("Map", destLoc.toString());
+        Log.d("Map", currentLoc.toString());
+        Log.d("Map", String.valueOf(destLoc.distanceTo(currentLoc)));
+        //If we are already at destination
+        if (destLoc.distanceTo(currentLoc)  <= distToSend){
+            sendSMS();
+            sent = true;
+            //Updates no longer necessary so remove listener
+            locationManager.removeUpdates(locationListener);
+        }
 
     }
 
@@ -190,6 +207,8 @@ public class waitActivity2 extends FragmentActivity{
 
         @Override
         public void onLocationChanged(Location location) {
+
+            currentLoc = location;
 
             //Calculate new progress
             progressStatus = Math.round(distBetween - destLoc.distanceTo(location));
