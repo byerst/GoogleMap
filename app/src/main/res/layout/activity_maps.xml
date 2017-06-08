@@ -1,20 +1,19 @@
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:theme="@style/Theme.AppCompat.Light"
         android:background="@color/wait_bg"
-        app:title="@string/app_name"
         app:logo="@drawable/ic_action_name"
-        app:titleTextColor="@color/white"
         app:subtitle="@string/title_activity_maps"
-        app:subtitleTextColor="@color/gray">
+        app:subtitleTextColor="@color/gray"
+        app:theme="@style/Theme.AppCompat.Light"
+        app:title="@string/app_name"
+        app:titleTextColor="@color/white">
 
     </android.support.v7.widget.Toolbar>
 
@@ -23,47 +22,48 @@
         android:layout_height="5px" />
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <EditText
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:layout_weight="5"
-        android:id="@+id/TFaddress"
-        android:inputType="textPostalAddress"
-        android:editable="true"
-        android:hint="@string/address_search"/>
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/TFaddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_weight="5"
+            android:editable="true"
+            android:hint="@string/address_search"
+            android:inputType="textPostalAddress" />
 
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/button_search"
-        android:id="@+id/Bsearch"
-        android:layout_gravity="top"
-        android:onClick="onSearch"
-        android:background="@drawable/start_button"
-        android:textColor="@color/white"/>
+        <Button
+            android:id="@+id/Bsearch"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:background="@drawable/start_button"
+            android:onClick="onSearch"
+            android:text="@string/button_search"
+            android:textColor="@color/white" />
 
         <Space
             android:layout_width="10px"
             android:layout_height="match_parent" />
 
         <Button
+            android:id="@+id/Bsubmit"
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/button_submit"
-            android:id="@+id/Bsubmit"
             android:layout_gravity="top"
-            android:onClick="onSubmit"
+            android:layout_weight="1"
             android:background="@drawable/start_button"
-            android:textColor="@color/white"/>
+            android:onClick="onSubmit"
+            android:text="@string/button_submit"
+            android:textColor="@color/white" />
 
         <Space
             android:layout_width="5px"
@@ -80,9 +80,13 @@
         android:layout_height="wrap_content">
 
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-            android:layout_height="match_parent" android:id="@+id/map" tools:context=".MapsActivity"
-            android:name="com.google.android.gms.maps.SupportMapFragment" />
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.mycompany.googlemap.MapsActivity" />
 
     </LinearLayout>
 
